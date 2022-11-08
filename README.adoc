@@ -1,0 +1,29 @@
+# Build a container image that provides an EAP Maven repository
+
+## Prerequisites
+
+* You have access to an OCP cluster 
+* `oc` and `docker` executable are available
+* You are logged in the OCP cluster
+
+## Instructions
+
+First, you need to download a zipped archive of EAP with the command
+
+[source,bash]
+----
+wget -c --no-check-certificate <url to jboss-eap-8.0.0.Beta maven-repository.zip> 
+----
+
+Then, you run the script `deploy.sh` with the name of the zip archive that has been downloaded
+
+[source,bash]
+----
+./deploy.sh <jboss-eap-8.0.0.Beta maven-repository.zip>
+----
+
+The script will build the container image that contains the EAP Maven repository and exposes it with a simple HTTP server.
+The image is pushed to the OCP Container registry and a deployment is created from it.
+
+Once the script is availabled, the Maven repository is available inside the cluster with a HTTP URL similar to 
+`http://eap-maven-repo.<OCP namespace>.svc.cluster.local:8080`.

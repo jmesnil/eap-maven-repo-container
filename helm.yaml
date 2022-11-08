@@ -1,0 +1,3 @@
+build:
+  uri: https://github.com/jmesnil/eap-offline-example.git 
+  ref: eap8-beta
