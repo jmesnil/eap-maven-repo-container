@@ -6,4 +6,7 @@ build:
       runtimeImage: brew.registry.redhat.io/rh-osbs/jboss-eap-8-tech-preview-eap8-openjdk11-runtime-openshift-rhel8:latest 
   env:
     - name: MAVEN_ARGS_APPEND
-      value: -Deap.maven.repo=http://eap-maven-repo.jmesnil1-dev.svc.cluster.local:8080
+      value: -Deap.maven.repo=http://eap-maven-repo.jmesnil1-dev.svc.cluster.local:4443 -Dversion.server.bom=8.0.0.Beta-redhat-20221105 -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.insecure=true
+  # build from a fork
+  uri: https://github.com/jmesnil/eap-quickstarts.git
+  sourceSecret: github-pull

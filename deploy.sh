@@ -1,12 +1,13 @@
 #!/bin/bash
 
 REPO_ZIP=${1}
+
 OCP_IMAGE_REGISTRY=$(oc registry info)
 OCP_NAMESPACE=$(oc project -q)
 OCP_IMAGE=${OCP_IMAGE_REGISTRY}/${OCP_NAMESPACE}/eap-maven-repo
 
 echo "Building container image eap-maven-repo "
-docker build  --build-arg REPO_ZIP=${1} -t eap-maven-repo .
+docker build  --build-arg REPO_ZIP=${REPO_ZIP} -t eap-maven-repo .
 
 echo "Login to ${OCP_IMAGE_REGISTRY}"
 oc registry login

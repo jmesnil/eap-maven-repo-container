@@ -15,15 +15,30 @@ First, you need to download a zipped archive of EAP with the command
 wget -c --no-check-certificate <url to jboss-eap-8.0.0.Beta maven-repository.zip> 
 ----
 
-Then, you run the script `deploy.sh` with the name of the zip archive that has been downloaded
+Then you need to generate a SSL certificate with:
+
+[source,bash]
+----
+openssl req -new -x509 -keyout key.pem -out server.pem -days 365 -nodes
+----
+
+Finally, you run the script `deploy.sh` with the name of the zip archive that has been downloaded
 
 [source,bash]
 ----
 ./deploy.sh <jboss-eap-8.0.0.Beta maven-repository.zip>
 ----
 
-The script will build the container image that contains the EAP Maven repository and exposes it with a simple HTTP server.
+The script will build the container image that contains the EAP Maven repository and exposes it with a simple HTTPS server.
 The image is pushed to the OCP Container registry and a deployment is created from it.
 
-Once the script is availabled, the Maven repository is available inside the cluster with a HTTP URL similar to 
-`http://eap-maven-repo.<OCP namespace>.svc.cluster.local:8080`.
+Once the script is availabled, the Maven repository is available inside the cluster with a HTTPS URL similar to 
+`https://eap-maven-repo.<OCP namespace>.svc.cluster.local:4443`.
+
+The SSL certificate might not be adequate. In that case, you can use the following System properties to let Maven pull from it:
+
+[source]
+----
+-Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.insecure=true
+----
+
