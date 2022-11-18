@@ -1,4 +1,4 @@
-FROM redhat/ubi9-minimal
+FROM registry.access.redhat.com/ubi9-minimal
 
 ARG REPO_ZIP
 
